@@ -49,18 +49,18 @@ footer{border-top:1px solid var(--line);margin-top:45px;padding:22px 0;color:var
 <main>
 <section class="page active" id="home">
   <div class="hero"><div class="hero-copy"><div class="eyebrow">YOUR ENTERTAINMENT HUB</div><h1>Kwento.<br>Saya.<br>JALAYAJAY TV.</h1><p>Mga pelikula, serye, anime, live channels at sports sa iisang madaling gamitin na app. Piliin ang opisyal na source para manood.</p><div class="hero-actions"><button class="btn gold" onclick="playDemo()">▶ Watch sample</button><button class="btn ghost" onclick="go('movies')">Explore movies</button></div></div></div>
-  <div class="section"><div class="section-head"><h2>Featured for you</h2><span class="muted">Updated catalog</span></div><div class="row-cards" id="featured"></div></div>
+  <div class="section"><div class="section-head"><h2>Featured for you</h2><span class="muted">Updated catalog</span></div><div class="row-cards" id="featured"></div></div><div class="section"><div class="section-head"><h2>Automatic Free Movie Library</h2><span class="muted" id="ia-home-status">Loading free licensed films…</span></div><div class="row-cards" id="ia-home"></div></div>
   <div class="section"><div class="section-head"><h2>Filipino Movies & Shows</h2><button class="seeall" onclick="go('movies')">See all ›</button></div><div class="row-cards" id="pinoy"></div></div>
   <div class="section"><div class="section-head"><h2>Asian Dramas & Anime</h2><button class="seeall" onclick="go('series')">See all ›</button></div><div class="row-cards" id="asian"></div></div>
   <div class="section"><div class="section-head"><h2>Free streaming services</h2><span class="muted">Official sources</span></div><div class="grid" id="services-home"></div></div>
   <div class="feature-banner"><div><h3>Try the Open Movie demo</h3><p>Isang Creative Commons animated film demo na puwedeng i-play sa built-in sample player.</p></div><button class="btn gold" onclick="go('player')">Open player</button></div>
 </section>
-<section class="page" id="movies"><div class="section-head"><h2>Movies</h2><p>Official free selections and movie services</p></div><div class="chips" id="movie-chips"></div><div class="grid" id="movie-grid"></div></section>
+<section class="page" id="movies"><div class="section-head"><h2>Movies</h2><p>Official free selections and movie services</p></div><div class="chips" id="movie-chips"></div><div class="grid" id="movie-grid"></div><div class="section"><div class="section-head"><h2>Free Library · Auto Updated</h2><p id="ia-status">Loading…</p></div><div class="grid" id="ia-grid"></div></div></section>
 <section class="page" id="series"><div class="section-head"><h2>Series, Asian Drama & Anime</h2><p>Available free titles depend on each provider</p></div><div class="chips" id="series-chips"></div><div class="grid" id="series-grid"></div></section>
 <section class="page" id="livetv"><div class="section-head"><h2>Live TV</h2><p>Official live channels and news streams</p></div><div class="feature-banner"><div><h3>Live channels</h3><p>Ang live availability ay nakadepende sa schedule at official channel.</p></div><span class="eyebrow">OFFICIAL LINKS</span></div><div class="grid" id="live-grid"></div></section>
 <section class="page" id="sports"><div class="section-head"><h2>Sports Center</h2><p>NBA, basketball and sports highlights</p></div><div class="grid" id="sports-grid"></div><div class="feature-banner"><div><h3>NBA & Basketball</h3><p>Official highlights, schedules and coverage. May content na nangangailangan ng subscription.</p></div><button class="btn gold" onclick="openExternal('https://www.nba.com/watch')">NBA Watch</button></div></section>
 <section class="page" id="mylist"><div class="section-head"><h2>My List</h2><p>Mga title na sine-save mo</p></div><div class="grid" id="mylist-grid"></div></section>
-<section class="page" id="player"><div class="section-head"><h2>Built-in Video Player</h2><p>Public demo video</p></div><div class="player-wrap"><iframe id="demo-frame" src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?rel=0&playsinline=1" title="Big Buck Bunny open movie demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div class="player-note">Sample playback: Big Buck Bunny by Blender Foundation (Creative Commons). Ang ibang pelikula at serye ay bubuksan sa kani-kanilang opisyal na platform dahil hindi lahat ay pinapayagang i-embed sa third-party app.</div></div><p style="color:var(--muted);font-size:12px;margin-top:14px">Kung hindi mag-play ang embedded video sa iyong device, pindutin ang <a href="https://www.youtube.com/watch?v=aqz-KE-bpKQ" target="_blank" rel="noopener" style="color:var(--gold)">Open in YouTube</a>.</p></section>
+<section class="page" id="player"><div class="section-head"><h2>Built-in Video Player</h2><p>Public demo video</p></div><div class="player-wrap"><video id="ia-video" controls playsinline preload="metadata" style="display:none;width:100%;aspect-ratio:16/9;background:#000"></video><iframe id="demo-frame" src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?rel=0&playsinline=1" title="Big Buck Bunny open movie demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe><div class="player-note" id="player-note">Sample playback: Big Buck Bunny by Blender Foundation (Creative Commons). Ang ibang pelikula at serye ay bubuksan sa kani-kanilang opisyal na platform dahil hindi lahat ay pinapayagang i-embed sa third-party app.</div></div><p style="color:var(--muted);font-size:12px;margin-top:14px">Kung hindi mag-play ang embedded video sa iyong device, pindutin ang <a href="https://www.youtube.com/watch?v=aqz-KE-bpKQ" target="_blank" rel="noopener" style="color:var(--gold)">Open in YouTube</a>.</p></section>
 <section class="page" id="settings"><div class="section-head"><h2>Settings</h2><p>Automatic na sine-save sa device</p></div><div class="settings">
   <div class="setting"><div><strong>Video quality</strong><small>Default playback quality</small></div><select data-setting="quality"><option>Auto</option><option>720p</option><option>1080p</option><option>480p</option></select></div>
   <div class="setting"><div><strong>Internet usage</strong><small>Balance video quality and data</small></div><select data-setting="internet"><option>Balanced</option><option>Data saver</option><option>Best quality</option></select></div>
@@ -133,6 +133,50 @@ function showToast(msg){let el=document.getElementById('toast');el.textContent=m
 const defaults={quality:'Auto',internet:'Balanced',subtitles:'Tagalog',download:'1080p'};
 document.querySelectorAll('[data-setting]').forEach(el=>{let k=el.dataset.setting;el.value=localStorage.getItem('jalayajay-'+k)||defaults[k];el.addEventListener('change',()=>{localStorage.setItem('jalayajay-'+k,el.value);showToast('Na-save ang '+k+' setting.')})});
 document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.trim().toLowerCase();if(!q)return;let results=[...catalog,...sources,...live,...sports,demo].filter(x=>(x.name+' '+(x.kind||'')+' '+(x.group||'')+' '+(x.desc||'')).toLowerCase().includes(q));go('movies');document.getElementById('search').value=q;document.getElementById('movie-grid').innerHTML=results.length?results.map(tile).join(''):'<div class="empty">Walang nahanap na resulta.</div>'});
+
+async function loadFreeArchiveCatalog(){
+ const home=document.getElementById('ia-home'), grid=document.getElementById('ia-grid');
+ const status=document.getElementById('ia-status'), homeStatus=document.getElementById('ia-home-status');
+ const allowed=function(v){const x=String(v||'').toLowerCase();return /creativecommons\.org\/(publicdomain\/(mark|zero)|licenses\/(by|by-sa)\/)/.test(x)&&!/(by-nc|by-nd|nc-sa|nc-nd)/.test(x);};
+ function card(item){
+  const el=document.createElement('article');el.className='tile';
+  const art=document.createElement('div');art.className='tile-art';art.style.backgroundImage='linear-gradient(0deg,#070a10dd,transparent 85%),url("'+item.poster+'")';art.style.backgroundSize='cover';art.style.backgroundPosition='center';art.textContent='FREE';
+  const body=document.createElement('div');body.className='tile-body';
+  const h=document.createElement('h3');h.textContent=item.title;
+  const p=document.createElement('p');p.textContent=item.license;
+  const b=document.createElement('button');b.className='btn gold';b.textContent='▶ Play';b.addEventListener('click',function(){playFreeArchive(item);});
+  body.append(h,p,b);el.append(art,body);return el;
+ }
+ try{
+  const q='mediatype:movies AND licenseurl:[* TO *]';
+  const url='https://archive.org/advancedsearch.php?q='+encodeURIComponent(q)+'&fl[]=identifier&fl[]=title&fl[]=licenseurl&rows=80&page=1&output=json&sort[]=downloads+desc';
+  const response=await fetch(url);if(!response.ok)throw new Error('Catalog unavailable');
+  const data=await response.json(), docs=(data.response&&data.response.docs||[]).filter(x=>allowed(x.licenseurl));
+  const items=[];
+  for(const d of docs.slice(0,40)){
+   try{
+    const mr=await fetch('https://archive.org/metadata/'+encodeURIComponent(d.identifier));if(!mr.ok)continue;
+    const m=await mr.json(), license=(m.metadata&&m.metadata.licenseurl)||d.licenseurl;
+    if(!allowed(license))continue;
+    const file=(m.files||[]).find(x=>/\.mp4$/i.test(x.name||'')&&!String(x.name).startsWith('__'));
+    if(!file)continue;
+    items.push({id:d.identifier,title:(m.metadata&&m.metadata.title)||d.title||d.identifier,license:license,poster:'https://archive.org/services/img/'+encodeURIComponent(d.identifier),video:'https://archive.org/download/'+encodeURIComponent(d.identifier)+'/'+encodeURIComponent(file.name)});
+    if(items.length>=24)break;
+   }catch(e){}
+  }
+  items.forEach(x=>{home.append(card(x));grid.append(card(x));});
+  const msg=items.length?items.length+' playable public-domain / Creative Commons movies loaded.':'No playable free-licensed MP4 films found right now.';
+  status.textContent=msg;homeStatus.textContent=msg;
+ }catch(e){status.textContent='Catalog unavailable. Check internet and retry later.';homeStatus.textContent='Free catalog temporarily unavailable.';}
+}
+function playFreeArchive(item){
+ const video=document.getElementById('ia-video'), frame=document.getElementById('demo-frame');
+ go('player');frame.style.display='none';video.style.display='block';video.src=item.video;video.load();
+ document.getElementById('player-note').textContent=item.title+' · '+item.license+' · Playback depends on the archive source and internet connection.';
+ video.play().catch(()=>showToast('Pindutin ang Play sa video player para magsimula.'));
+}
+
 render();
+loadFreeArchiveCatalog();
 </script>
 </body></html>
