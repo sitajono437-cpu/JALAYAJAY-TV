@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="tl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b12">
+<title>JALAYAJAY TV — Sample 1.0</title>
+<style>
+:root{--bg:#090b12;--panel:#131722;--panel2:#1b2130;--text:#f5f7fb;--muted:#9ca6b8;--accent:#e7b84b;--line:#2b3242}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;color:inherit}
+.app{max-width:1180px;margin:auto;padding:0 20px 60px}
+header{height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;position:sticky;top:0;background:#090b12ed;backdrop-filter:blur(14px);z-index:5;border-bottom:1px solid #ffffff0c}
+.brand{font-size:22px;font-weight:900;letter-spacing:1.4px;white-space:nowrap}.brand span{color:var(--accent)}
+nav{display:flex;gap:8px;align-items:center;overflow:auto}.nav{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:10px;white-space:nowrap}.nav.active,.nav:hover{background:var(--panel2);color:white}
+.search{width:min(230px,28vw);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 13px;color:white;outline:none}
+.hero{margin:22px 0 30px;min-height:340px;border-radius:22px;overflow:hidden;position:relative;background:linear-gradient(90deg,#080b13 0%,#080b13e8 40%,#080b1350 100%),radial-gradient(ellipse at 78% 35%,#78512f 0%,#392c31 28%,#172031 62%,#0b0e17 100%);display:flex;align-items:center;padding:clamp(24px,5vw,58px);border:1px solid #ffffff12}
+.hero:after{content:"";position:absolute;right:7%;top:12%;width:33%;height:76%;border-radius:48% 48% 18% 18%;background:linear-gradient(145deg,#d6a66a,#483b3d 48%,#151a27);opacity:.45;filter:blur(1px);transform:rotate(-7deg)}
+.hero-content{position:relative;z-index:1;max-width:510px}.eyebrow{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:2px}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.03;margin:12px 0}.hero p{color:#c3c9d4;max-width:430px}.actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.primary,.secondary{border:0;border-radius:11px;padding:12px 18px;font-weight:800}.primary{background:var(--accent);color:#17130a}.secondary{background:#ffffff18;border:1px solid #ffffff25}
+.section{margin:28px 0}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.section h2{font-size:20px;margin:0}.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.movie{min-width:0;background:var(--panel);border:1px solid #ffffff0c;border-radius:14px;overflow:hidden;cursor:pointer;transition:.18s}.movie:hover,.movie:focus{transform:translateY(-3px);outline:2px solid var(--accent)}.poster{height:190px;display:flex;align-items:end;padding:12px;background:linear-gradient(160deg,var(--c1),var(--c2));position:relative;overflow:hidden}.poster:before{content:"";position:absolute;width:130px;height:170px;border-radius:50%;background:#ffffff18;right:-22px;top:-26px}.poster:after{content:"";position:absolute;inset:35% 18% -28%;border-radius:50% 50% 0 0;background:#080b1260;transform:rotate(-9deg)}.poster b{position:relative;z-index:1;font-size:18px;line-height:1.05;text-shadow:0 2px 8px #000}.movie-info{padding:11px}.movie-title{font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.movie-meta{font-size:12px;color:var(--muted);margin-top:4px}
+.empty{padding:30px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);text-align:center}
+.page{display:none}.page.active{display:block}
+.settings{max-width:680px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px}.setting{display:flex;justify-content:space-between;gap:18px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}.setting:last-child{border:0}.setting strong{display:block}.setting small{color:var(--muted)}select{background:#202737;border:1px solid #3a455b;color:white;border-radius:9px;padding:10px;max-width:190px}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:22px 0;color:var(--muted);font-size:12px}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:10;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.dialog{width:min(560px,100%);background:#151b28;border:1px solid var(--line);border-radius:20px;padding:22px}.dialog-top{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#ffffff14;border-radius:9px;padding:8px 12px}.detail-art{height:160px;border-radius:13px;margin:14px 0;background:linear-gradient(135deg,#7c5037,#202c43);display:grid;place-items:center;color:#ffffffa0;font-size:13px;letter-spacing:2px}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#252d3d;border:1px solid #49546a;padding:10px 15px;border-radius:12px;display:none;z-index:20;max-width:90%;text-align:center}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.poster{height:165px}.hero{min-height:300px}.hero:after{right:-4%;width:43%;opacity:.28}}
+@media(max-width:560px){.app{padding:0 13px 40px}header{height:auto;min-height:66px;flex-wrap:wrap;padding:10px 0}.brand{font-size:19px}nav{order:3;width:100%;padding-bottom:2px}.search{width:42vw}.hero{margin-top:14px;min-height:290px;padding:24px}.hero:after{right:-20%;width:60%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.poster{height:170px}.section h2{font-size:18px}.setting{align-items:flex-start;flex-direction:column;gap:9px}select{max-width:none;width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand">JALAYAJAY <span>TV</span></div>
+  <nav aria-label="Main navigation">
+    <button class="nav active" data-page="home">Home</button>
+    <button class="nav" data-page="movies">Movies</button>
+    <button class="nav" data-page="series">Series</button>
+    <button class="nav" data-page="settings">Settings</button>
+  </nav>
+  <input id="search" class="search" placeholder="Search titles..." aria-label="Search titles">
+</header>
+<main>
+<section id="home" class="page active">
+  <div class="hero"><div class="hero-content">
+    <div class="eyebrow">WELCOME TO YOUR ENTERTAINMENT</div>
+    <h1>Kwento. Saya.<br>JALAYAJAY TV.</h1>
+    <p>Isang malinis at madaling gamitin na streaming app experience para sa cellphone at Android TV.</p>
+    <div class="actions">
+      <button class="primary" onclick="showToast('Sample preview lamang — wala pang aktuwal na video stream.')">▶ Explore now</button>
+      <button class="secondary" onclick="go('movies')">Browse movies</button>
+    </div>
+  </div></div>
+  <div class="section"><div class="section-head"><h2>Featured</h2><span class="muted">Sample catalog</span></div><div class="grid" id="featured"></div></div>
+  <div class="section"><div class="section-head"><h2>Popular Movies</h2><span class="muted">See what’s available</span></div><div class="grid" id="popular"></div></div>
+</section>
+<section id="movies" class="page"><div class="section-head"><h2>Movies</h2><span class="muted">Browse the movie collection</span></div><div class="grid" id="movie-list"></div></section>
+<section id="series" class="page"><div class="section-head"><h2>Series</h2><span class="muted">Stories to follow</span></div><div class="grid" id="series-list"></div></section>
+<section id="settings" class="page">
+  <div class="section-head"><h2>Settings</h2><span class="muted">Your viewing preferences</span></div>
+  <div class="settings">
+    <div class="setting"><div><strong>Video quality</strong><small>Choose playback quality</small></div><select><option selected>Auto</option><option>720p</option><option>1080p</option><option>480p</option></select></div>
+    <div class="setting"><div><strong>Internet usage</strong><small>Balance quality and data use</small></div><select><option selected>Balanced</option><option>Data saver</option><option>Best quality</option></select></div>
+    <div class="setting"><div><strong>Subtitles</strong><small>Default subtitle language</small></div><select><option selected>Tagalog</option><option>English</option><option>Off</option></select></div>
+    <div class="setting"><div><strong>Offline download quality</strong><small>Preferred download quality</small></div><select><option>720p</option><option selected>1080p</option><option>480p</option></select></div>
+    <div class="setting"><div><strong>App layout</strong><small>Designed for touch and TV remote navigation</small></div><span class="muted">Touch + D-pad sample</span></div>
+  </div>
+</section>
+</main>
+<footer>JALAYAJAY TV · SAMPLE VERSION 1.0<br>Demo interface only. Movie titles and artwork are placeholders. No streaming or downloads are connected yet.</footer>
+</div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="dialog">
+    <div class="dialog-top"><span class="eyebrow">TITLE DETAILS</span><button class="close" onclick="closeModal()">Close ✕</button></div>
+    <div class="detail-art">JALAYAJAY TV · PREVIEW</div>
+    <h2 id="modal-title">Title</h2><p id="modal-meta" class="muted"></p>
+    <p id="modal-desc">This is a sample title detail page for the JALAYAJAY TV prototype.</p>
+    <button class="primary" onclick="showToast('Wala pang nakakonektang video source sa sample.')">▶ Play preview</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const titles=[
+ {name:"Huling Liwanag",type:"Movie",year:"2026",genre:"Drama",c1:"#b66b42",c2:"#252c4d",desc:"Isang sample drama title tungkol sa pamilya, pag-asa at bagong simula."},
+ {name:"Biyahe",type:"Movie",year:"2025",genre:"Adventure",c1:"#347a83",c2:"#17243b",desc:"Isang kathang-isip na pakikipagsapalaran sa mahabang paglalakbay."},
+ {name:"Lihim sa Gabi",type:"Series",year:"2026",genre:"Mystery",c1:"#56447d",c2:"#101725",desc:"Isang sample mystery series na puno ng mga tanong."},
+ {name:"Pusong Matatag",type:"Movie",year:"2025",genre:"Drama",c1:"#9c5262",c2:"#29203b",desc:"Kuwento ng tapang at pagmamahal sa gitna ng pagsubok."},
+ {name:"Tawid",type:"Series",year:"2026",genre:"Family",c1:"#4c7963",c2:"#182d34",desc:"Isang kathang-isip na serye tungkol sa pamilya at pagkakaisa."},
+ {name:"Habol Oras",type:"Movie",year:"2024",genre:"Action",c1:"#a45a34",c2:"#25263c",desc:"Isang sample action title na may mabilis na takbo ng kuwento."}
+];
+function card(t){return `<article class="movie" tabindex="0" role="button" aria-label="View ${t.name}" onclick="details('${t.name}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();details('${t.name}')}"><div class="poster" style="--c1:${t.c1};--c2:${t.c2}"><b>${t.name}</b></div><div class="movie-info"><div class="movie-title">${t.name}</div><div class="movie-meta">${t.type} · ${t.year} · ${t.genre}</div></div></article>`}
+function render(){document.getElementById('featured').innerHTML=titles.slice(0,5).map(card).join('');document.getElementById('popular').innerHTML=titles.slice(1,6).map(card).join('');document.getElementById('movie-list').innerHTML=titles.filter(t=>t.type==='Movie').map(card).join('');document.getElementById('series-list').innerHTML=titles.filter(t=>t.type==='Series').map(card).join('')}
+function go(page){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===page));document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.getElementById('search').value='';document.getElementById('search').placeholder='Search titles...';window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+function details(name){let t=titles.find(x=>x.name===name);if(!t)return;document.getElementById('modal-title').textContent=t.name;document.getElementById('modal-meta').textContent=`${t.type} · ${t.year} · ${t.genre}`;document.getElementById('modal-desc').textContent=t.desc;document.getElementById('modal').classList.add('open')}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+function showToast(msg){let el=document.getElementById('toast');el.textContent=msg;el.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',2800)}
+document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase();let active=document.querySelector('.page.active');if(active.id==='settings')go('movies');let list=titles.filter(t=>(t.name+' '+t.type+' '+t.genre).toLowerCase().includes(q));document.getElementById('movie-list').innerHTML=list.map(card).join('')||'<div class="empty">Walang nahanap na title.</div>';if(q){go('movies');document.getElementById('search').value=q;document.getElementById('movie-list').innerHTML=list.map(card).join('')||'<div class="empty">Walang nahanap na title.</div>'}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.key==='Backspace'&&document.activeElement.tagName!=='INPUT')go('home')});
+render();
+</script>
+</body></html>
