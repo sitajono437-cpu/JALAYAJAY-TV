@@ -1,0 +1,16 @@
+{
+  "name": "jalayajay-tv",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JALAYAJAY TV legal free streaming discovery app",
+  "scripts": {
+    "build:web": "mkdir -p www && cp index.html www/index.html"
+  },
+  "dependencies": {
+    "@capacitor/android": "7.4.3",
+    "@capacitor/core": "7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "7.4.3"
+  }
+}
