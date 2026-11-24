@@ -33,6 +33,18 @@ jobs:
         run: npm run build:web
       - name: Add Android platform
         run: npx cap add android
+      - name: Apply original JALAYAJAY TV icon
+        run: |
+          mkdir -p android/app/src/main/res/drawable
+          curl -fsSL 'https://raw.githubusercontent.com/sitajono437-cpu/JALAYAJAY-TV/main/Screenshot_2026-11-24-16-45-38-563_com.larus.wolf-edit.jpg' -o android/app/src/main/res/drawable/jalayajay_icon.jpg
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('android/app/src/main/AndroidManifest.xml')
+          s = p.read_text()
+          s = s.replace('android:icon="@mipmap/ic_launcher"', 'android:icon="@drawable/jalayajay_icon"')
+          s = s.replace('android:roundIcon="@mipmap/ic_launcher_round"', 'android:roundIcon="@drawable/jalayajay_icon"')
+          p.write_text(s)
+          PY
       - name: Sync Capacitor
         run: npx cap sync android
       - name: Build debug APK
